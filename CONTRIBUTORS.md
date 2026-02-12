@@ -1,4 +1,5 @@
 Vaibhav Dhir, vaibhav.dhir@razorpay.com
+Himanshu, himanshu.sharma@razorpay.com
 Akanksha, akanksha.khanna@razorpay.com
 Premika, premika.m@razorpay.com
 Aditya Nawal, aditya.nawal@razorpay.com
