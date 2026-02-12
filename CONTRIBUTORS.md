@@ -1,4 +1,5 @@
 Vaibhav Dhir, vaibhav.dhir@razorpay.com
+Kartik, kartik@razorpay.com
 Aakash, kikani.akash@razorpay.com
 Pranjal, pranjal.meena@razorpay.com
 Jahnvi, jahnvi.batra@razorpay.com
