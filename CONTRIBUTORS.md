@@ -1,4 +1,5 @@
 Vaibhav Dhir, vaibhav.dhir@razorpay.com
+Rahul, sharma.rahul@razorpay.com
 Saurabh Soni, saurabh.soni@razorpay.com (Edited via terminal)
 Kartik, kartik@razorpay.com
 Aakash, kikani.akash@razorpay.com
