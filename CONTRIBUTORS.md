@@ -17,3 +17,4 @@ Sudarshan Srinivas, sudarshan.srinivas@razorpay.com
 Dhir
 Gopi,gopi.bhatnagar@razorpay.com
 Atyasha, atyasha@razorpay.com
+Anitej Tripathy, anitej.tripathy@razorpay.com
