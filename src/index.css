@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Razorpay design tokens used by the Figma export */
+  --surface-background-gray-intense: #ffffff;
+  --surface-background-gray-subtle: #f5f7fa;
+  --surface-background-gray-moderate: #eef1f6;
+  --surface-background-primary-subtle: #eef0fc;
+  --surface-border-gray-muted: rgba(108, 132, 157, 0.18);
+  --surface-border-gray-subtle: rgba(108, 132, 157, 0.1);
+  --surface-text-gray-normal: #192839;
+  --surface-text-gray-muted: #6c849d;
+  --surface-text-gray-subtle: #8a99ad;
+  --surface-text-gray-disabled: rgba(67, 75, 81, 0.32);
+  --surface-text-staticwhite-normal: #ffffff;
+  --surface-text-primary-normal: #3f51b5;
+  --surface-text-positive-normal: #006c36;
+  --surface-text-negative-normal: #b80b00;
+  --surface-neutral-000: #ffffff;
+  --surface-neutral-200: #e3eaf3;
+  --surface-icon-gray-muted: #6c849d;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #e9ecf1;
+}
+
+/* ─── Highlighted card: white text + white icons ─────────────────────────
+ * Applied via data-highlight-color="green" | "black" on the Method dropdown
+ * (UPI's case puts the attribute on the top white row only — the lavender
+ * embedded area below it gets a light tint instead, so the inner provider
+ * cards keep their normal colors).
+ */
+[data-highlight-color="green"] p,
+[data-highlight-color="green"] span,
+[data-highlight-color="green"] div,
+[data-highlight-color="black"] p,
+[data-highlight-color="black"] span,
+[data-highlight-color="black"] div {
+  color: #ffffff !important;
+}
+
+/* Strikethrough/disabled price text inside a highlighted card: still
+ * readable but visually demoted */
+[data-highlight-color="green"] p[class*="line-through"],
+[data-highlight-color="black"] p[class*="line-through"] {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+/* Icon SVGs / images: invert to white. brightness(0) collapses to black,
+ * invert(1) flips it to white. Applied to method icons (calendar, bank, etc.)
+ * and the right-side arrow. */
+[data-highlight-color="green"] img,
+[data-highlight-color="black"] img {
+  filter: brightness(0) invert(1);
+}
+
+/* …but DON'T invert third-party provider logos. They sit in containers
+ * named "Providers" / "Provider Icon" or in EMI's case an "image 24563" tile.
+ * Keep their original brand colours so VISA / Mastercard / Google Pay /
+ * PayTM / PhonePe / RuPay / OneCard / HDFC stay recognisable on a coloured
+ * background. */
+[data-highlight-color] [data-name="Providers"] img,
+[data-highlight-color] [data-name="Provider Icon"] img,
+[data-highlight-color] [data-name^="image"] img {
+  filter: none;
+}
+
+/* ─── Card hover states ─────────────────────────────────────────────────
+ * We target Method-dropdown elements directly (the row that visually carries
+ * the card's background). All 5 payment cards have `data-name="Method
+ * dropdown"`; UPI's Method dropdown is just the top white row of the UPI
+ * section, while Cards/Netbanking/EMI/COD's is the entire card. Using this
+ * selector means hovering UPI's white row also triggers the hover, instead
+ * of being masked by the inner row's own white bg.
+ *
+ * Three variants, depending on the card's highlight state:
+ *   - No highlight: a very light lavender/blue tint.
+ *   - Highlighted GREEN: a darker green than the highlight base.
+ *   - Highlighted BLACK: a lighter grey/black than the highlight base.
+ * `!important` is required because the highlight applies its colour via an
+ * inline `style` attribute, which beats class selectors otherwise.
+ */
+[data-name="Method dropdown"] {
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+[data-name="Method dropdown"]:hover {
+  background-color: #f0f3ff !important;
+}
+[data-name="Method dropdown"][data-highlight-color="green"]:hover {
+  background-color: #006c36 !important;
+}
+[data-name="Method dropdown"][data-highlight-color="black"]:hover {
+  background-color: #3a3a3a !important;
+}
+
+/* ─── Inner UPI provider cards hover ───────────────────────────────────
+ * The 4 cards inside the UPI section (Google Pay, PayTM, PhonePe, More).
+ * Same lavender tint as the outer-card hover, just applied to these
+ * smaller white tiles. */
+[data-node-id="3612:15657"],
+[data-node-id="3612:15658"],
+[data-node-id="3612:15660"],
+[data-node-id="3612:15661"] {
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+[data-node-id="3612:15657"]:hover,
+[data-node-id="3612:15658"]:hover,
+[data-node-id="3612:15660"]:hover,
+[data-node-id="3612:15661"]:hover,
+[data-nb-inner="true"] {
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+}
+[data-node-id="3612:15657"]:hover,
+[data-node-id="3612:15658"]:hover,
+[data-node-id="3612:15660"]:hover,
+[data-node-id="3612:15661"]:hover,
+[data-nb-inner="true"]:hover {
+  background-color: #f0f3ff !important;
+}
+
+/* Inner provider cards take a LIGHTER tint of the parent's highlight colour
+ * when UPI / Netbanking is the currently highlighted card. The inner cards
+ * sit on the embedded area which is itself already a very light tint
+ * (#e6f3ec for green / #ececec for black), so the hover needs to be a touch
+ * darker than that — but still light enough that the inner card's dark text
+ * stays readable. */
+[data-highlight-card="upi"][data-highlight-color-global="green"] [data-node-id="3612:15657"]:hover,
+[data-highlight-card="upi"][data-highlight-color-global="green"] [data-node-id="3612:15658"]:hover,
+[data-highlight-card="upi"][data-highlight-color-global="green"] [data-node-id="3612:15660"]:hover,
+[data-highlight-card="upi"][data-highlight-color-global="green"] [data-node-id="3612:15661"]:hover,
+[data-highlight-card="netbanking"][data-highlight-color-global="green"] [data-nb-inner="true"]:hover {
+  background-color: #c8e4d3 !important;
+}
+[data-highlight-card="upi"][data-highlight-color-global="black"] [data-node-id="3612:15657"]:hover,
+[data-highlight-card="upi"][data-highlight-color-global="black"] [data-node-id="3612:15658"]:hover,
+[data-highlight-card="upi"][data-highlight-color-global="black"] [data-node-id="3612:15660"]:hover,
+[data-highlight-card="upi"][data-highlight-color-global="black"] [data-node-id="3612:15661"]:hover,
+[data-highlight-card="netbanking"][data-highlight-color-global="black"] [data-nb-inner="true"]:hover {
+  background-color: #d0d0d0 !important;
+}
+
+/* ─── Price visibility, driven by data-price-mode on the root <Long> ──
+ * 'full': both prices shown (default)
+ * 'no-strike': hide just the strikethrough price; keep the regular price
+ * 'none': hide both prices (arrow stays)
+ *
+ * Each card's price area is a flex row containing:
+ *   <div>strikethrough <p class="line-through">…</p></div>
+ *   <div>regular <p>…</p></div>
+ *   <div>arrow icon</div>
+ * We use :has() to identify the strikethrough container and use the
+ * adjacent-sibling combinator to reach the regular-price container. */
+[data-price-mode="no-strike"] div:has(> p[class*="line-through"]),
+[data-price-mode="none"] div:has(> p[class*="line-through"]) {
+  display: none;
+}
+[data-price-mode="none"] div:has(> p[class*="line-through"]) + div {
+  display: none;
+}
